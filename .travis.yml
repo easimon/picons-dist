@@ -1,0 +1,9 @@
+addons:
+  apt:
+    packages:
+    - librsvg2-bin
+
+
+script:
+  - ./build.sh
+  
