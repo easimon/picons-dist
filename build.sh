@@ -16,7 +16,7 @@ echo "Convert SVGs"
 for i in picons-source/build-source/logos/*.svg; do
   svg=$i
   png=$build/$(basename "$i" ".svg").png
-  rsvg-convert --format=png --keep-aspect-ratio --width=800 $svg > $png
+  rsvg-convert --format=png --keep-aspect-ratio --width=1000 $svg > $png
   echo -n '.'
 done
 echo
@@ -47,11 +47,12 @@ grep -v -e '^#' -e '^$' backgrounds.conf | while read lines; do
     fi
 
     if [[ ! -f $dst ]]; then
-      convert $bgfile \( $src -background none -bordercolor none -border 100 -trim -border 1% -resize $resize -gravity center -extent $resolution +repage \) -layers merge - 2> /dev/null | $pngquant 2> /dev/null > $dst
+      convert $bgfile \( $src -background none -bordercolor none -border 100 -trim -border 1% -resize $resize -gravity center -extent $resolution +repage \) -layers merge - | $pngquant > $dst
     fi
 
     dstlink=$dir/$sid.png
-    if [[ $dst != $dst ]]; then
+    if [[ $dstlink != $dst ]]; then
+      rm -f $dstlink
       ln -s $dst $dstlink
     fi
     echo -n '.'
