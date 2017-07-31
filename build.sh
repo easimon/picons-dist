@@ -41,13 +41,13 @@ for i in $(cat picons-source/build-source/snp-index); do
   echo -n '.'
 done
 
-echo "Link service names - not yet functional"
-mkdir -p $target/srp
-for i in $(cat picons-source/build-source/srp-index); do
-  sid=$(echo $i | cut -f1 -d=)
-  chn=$(echo $i | cut -f2 -d=)
-  ln -s $target/$chn.png $target/srp/$sid.png
-  echo -n '.'
-done
+#echo "Link service names - not yet functional"
+#mkdir -p $target/srp
+#for i in $(cat picons-source/build-source/srp-index); do
+#  sid=$(echo $i | cut -f1 -d=)
+#  chn=$(echo $i | cut -f2 -d=)
+#  ln -s $target/$chn.png $target/srp/$sid.png
+#  echo -n '.'
+#done
 
 echo "Build complete"
