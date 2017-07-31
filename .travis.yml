@@ -1,17 +1,12 @@
+env:
+  global:
+    secure: "NgdajgHW+WYCW+z8pX90TRWsL0hhdlXuWOT0TrV1q4EcvXuhru73F1ZgGWh0YJio4QzQdKhnFRzJ/WuxuIx+RkFnbbN1T2zZaC+K40GgOf2z30f+Yuite0b/41/o4SRqUwJ+T3Y2Edc+yHQJz9L9ioib0r1rwFGzn4acrrPr0bJpdDThxmRjAZTrLJLI+W0mwSy8DVDbDMGtZtQpAXE+0Z6ypoGLXrgMYENVJka7DjQAE/AK5B0riGS9fIPcbhmw3pUoiRboMKWkCkmeEd5CC+3Ly96GtQ+b040HNhFhmNf939m7CivoV+rA91i1YNEca5nCJsFhJGsimjPHwykA3hyUMS50TYacjjGLClCexoGLke/QaWhN575cn0f/zkBxzvlPxs4LOUmGsftEc7eUMck0MSEvqm/LOKjq+Kn+QuicM1INlCNPZfXQF/KKeRae7VyUBB9rZLcTe4gXvpHzu3pYowL7rNRDYW0nVJbZGbBevUEvX9fMD7rm6Zr2qddyLWV1bLkoYhCka/YOccKtBvMJ9v2FJTk8H8qFC4ChyKkAFKNbETgYBjKem8pN2QG0fkOmCgAm6deIYbKiTjqjoKFYvqPZVIpEFMxx4B2jadpin+aezSf7KstJJYCMVmvaBlZJiQ94/7D/gWcGc5/xV+CKiKUJoKc2semEB09TIAA="
+
 addons:
   apt:
     packages:
     - librsvg2-bin
+
 script:
 - ./build.sh
 
-deploy:
-  provider: releases
-  api_key:
-    secure: JJVw84a/GDdJgg/o/24/N12bz9cdA+cLlls1HeiZ4Y6Zs8TRmfOJipBHcpcqyeeSXBmHR85C7OwYhVcbrEqs8Pu2qLdNWZJ8ZyclHRuT8ZlVSTkC69nXfgtmDGM43KEihe3RMoyOfAu6D/OEBpYzBONFy7deB0MuUuZ1h13kOz/9brY6oBQ7OEzGba0cVm4WMTH3JfbFp5Hi2zQiWuV25tpVlymJMsinrTCDC8EiHUwjGj5CivxXtoR877O67MyjvmP+j2MvCas6GwieqKDbxTvK0ZSAKCLP3loCpc3F9DUpWPjPA4/3vlaJthVkaqG6cA9kmM3OauKCCK6POElLpFwhIJpRZ4cpMDgyNJGJ6UOy7wB6LzSLKQ+oBCimAir04Cwgsb+v4gwe9x7QWdn1puGDh4g7cDPMercS6Dkk4uorsXrBsd+SQ5LAqLeX8cpAKQ1/POqXysAxj38080uPtFYYeslI7bNY4/CPj3fRaH70kP2BXeemJBJYhNxpGZfUvkJUCNnMYCoIpoRa94wZe3XAEWeOOY5VhYom2gjP0xveN5s0wR5IbNnTY5CdGqSE5KRZ0nMmfQhpgMHGgdQjm13WrRAVBa39SDKNtyGnDUWL3AEH5+V3posXrDnjtj0ROpxX4PeyCihe5g8dI33cDWU82ckQqUGcBOziKtcpNys=
-  file_glob: true
-  file: target/*.png
-  skip_cleanup: true
-  on:
-    repo: easimon/picons-dist
-    tags: true
