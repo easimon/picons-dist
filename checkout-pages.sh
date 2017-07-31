@@ -25,11 +25,10 @@ repo=$(git config remote.origin.url)
 ssh_repo=${repo/https:\/\/github.com\//git@github.com:}
 sha=`git rev-parse --verify HEAD`
 
-git clone $ssh_repo $target
+git clone --depth=1 --branch $target_branch $ssh_repo $target
 cd $target
 git config user.name  "Travis CI"
 git config user.email "$GH_USER_EMAIL"
-git checkout $target_branch
 cd ..
 
 echo "Clean target"
