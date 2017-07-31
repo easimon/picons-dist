@@ -7,6 +7,15 @@ addons:
     packages:
     - librsvg2-bin
 
-script:
-- ./build.sh
+install:
+  - ./checkout-pages.sh && ./checkout-picons.sh
 
+script:
+  - ./build.sh
+
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: ./deploy-to-pages.sh
+  on:
+    branch: master
