@@ -34,6 +34,7 @@ grep -v -e '^#' -e '^$' backgrounds.conf | while read lines; do
   resize=${line[1]}
   type=${line[2]}
   background=${line[3]}
+  bgfile=picons-source/build-source/backgrounds/$resolution/$background.png
 
   dir=$target/$resolution/$type/$background
   echo "Build $dir"
@@ -47,8 +48,7 @@ grep -v -e '^#' -e '^$' backgrounds.conf | while read lines; do
     if [[ ! -f $src ]]; then
       src=$build/$chn.default.png
     fi
-    
-    bgfile=picons-source/build-source/backgrounds/$resolution/$background.png 
+
     convert $bgfile \( $src -background none -bordercolor none -border 100 -trim -border 1% -resize $resize -gravity center -extent $resolution +repage \) -layers merge - 2> /dev/null | $pngquant 2> /dev/null > $dst
     echo -n '.'
   done
