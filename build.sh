@@ -25,7 +25,7 @@ done
 for i in $(cat picons-source/build-source/srp-index); do
   sid=$(echo $i | cut -f1 -d=)
   chn=$(echo $i | cut -f2 -d=)
-  cp $target/$chn.png $target/srp/$sid.png
+  ln -s $target/$chn.png $target/srp/$sid.png
 done
 
 echo "Build complete"
