@@ -34,5 +34,6 @@ cd ..
 
 echo "Clean target"
 rm -fr $target/*
+mkdir -p $target/srp
 
 echo "Done"
