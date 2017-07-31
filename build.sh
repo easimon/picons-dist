@@ -30,3 +30,4 @@ for i in target/*; do
   mv $old $new
 done
 
+echo "Build complete"
