@@ -16,14 +16,13 @@ echo "Convert SVGs"
 for i in picons-source/build-source/logos/*.svg; do
   svg=$i
   png=$build/$(basename "$i" ".svg").png
-  rsvg-convert --format=png $svg > $png
+  rsvg-convert --format=png --keep-aspect-ratio --width=800 $svg > $png
   echo -n '.'
 done
 echo
 
 echo "Resize and compose"
 grep -v -e '^#' -e '^$' backgrounds.conf | while read lines; do
-  currentlogo=""
 
   OLDIFS=$IFS
   IFS=";"
@@ -35,21 +34,26 @@ grep -v -e '^#' -e '^$' backgrounds.conf | while read lines; do
   type=${line[2]}
   background=${line[3]}
   bgfile=picons-source/build-source/backgrounds/$resolution/$background.png
-
   dir=$target/$resolution/$type/$background
-  echo "Build $dir"
+  echo "Resize and compose $resolution/$type/$background"
   mkdir -p $dir
-
   for file in $(cat picons-source/build-source/snp-index); do
     sid=$(echo $file | cut -f1 -d=)
     chn=$(echo $file | cut -f2 -d=)
-    dst=$dir/$sid.png
+    dst=$dir/$chn.png
     src=$build/$chn.$type.png
     if [[ ! -f $src ]]; then
       src=$build/$chn.default.png
     fi
 
-    convert $bgfile \( $src -background none -bordercolor none -border 100 -trim -border 1% -resize $resize -gravity center -extent $resolution +repage \) -layers merge - 2> /dev/null | $pngquant 2> /dev/null > $dst
+    if [[ ! -f $dst ]]; then
+      convert $bgfile \( $src -background none -bordercolor none -border 100 -trim -border 1% -resize $resize -gravity center -extent $resolution +repage \) -layers merge - 2> /dev/null | $pngquant 2> /dev/null > $dst
+    fi
+
+    dstlink=$dir/$sid.png
+    if [[ $dst != $dst ]]; then
+      ln -s $dst $dstlink
+    fi
     echo -n '.'
   done
   echo
