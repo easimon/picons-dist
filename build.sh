@@ -32,7 +32,17 @@ for i in $target/*.png; do
   echo -n '.'
 done
 
-echo "Link service names"
+echo "Link channel names"
+mkdir -p $target/snp
+for i in $(cat picons-source/build-source/snp-index); do
+  sid=$(echo $i | cut -f1 -d=)
+  chn=$(echo $i | cut -f2 -d=)
+  ln -s $target/$chn.png $target/snp/$sid.png
+  echo -n '.'
+done
+
+echo "Link service names - not yet functional"
+mkdir -p $target/srp
 for i in $(cat picons-source/build-source/srp-index); do
   sid=$(echo $i | cut -f1 -d=)
   chn=$(echo $i | cut -f2 -d=)
