@@ -20,7 +20,7 @@ chmod 600 "$SSH_FILE" \
       "  LogLevel ERROR" >> ~/.ssh/config
 
 # Check out gh-pages branch
-echo "Cloning Github Pages branch"
+echo "Clone Github Pages branch"
 repo=$(git config remote.origin.url)
 ssh_repo=${repo/https:\/\/github.com\//git@github.com:}
 sha=`git rev-parse --verify HEAD`

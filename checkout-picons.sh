@@ -4,6 +4,6 @@ set -euo pipefail
 
 . vars.sh
 
-echo "Cloning picons-source"
+echo "Clone picons-source"
 git clone --depth 1 https://github.com/picons/picons-source.git
 

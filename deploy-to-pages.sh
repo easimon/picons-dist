@@ -4,7 +4,7 @@ set -euo pipefail
 
 . vars.sh
 
-echo "Uploading to Github Pages"
+echo "Upload to Github Pages"
 sha=`git rev-parse --verify HEAD`
 
 cd $target
