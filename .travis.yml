@@ -6,6 +6,7 @@ addons:
   apt:
     packages:
     - librsvg2-bin
+    - pngquant
 
 install:
   - ./checkout-pages.sh && ./checkout-picons.sh
