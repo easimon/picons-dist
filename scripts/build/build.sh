@@ -17,7 +17,7 @@ echo "Convert SVGs"
 for i in picons-source/build-source/logos/*.svg; do
   svg=$i
   png=$build/$(basename "$i" ".svg").png
-  rsvg-convert --format=png --keep-aspect-ratio --width=1000 $svg | $pngquant > $png
+  rsvg-convert --format=png --keep-aspect-ratio --width=1000 $svg > $png
   echo -n '.'
 done
 echo
