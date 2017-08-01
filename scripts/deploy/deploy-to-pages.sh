@@ -2,7 +2,8 @@
 
 set -euo pipefail
 
-. vars.sh
+thisdir=$(dirname ${BASH_SOURCE[0]})
+. $thisdir/../vars.sh
 
 echo "Upload to Github Pages"
 sha=`git rev-parse --verify HEAD`

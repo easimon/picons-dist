@@ -4,7 +4,8 @@ set -euo pipefail
 
 pngquant="pngquant 256 -"
 
-. vars.sh
+thisdir=$(dirname ${BASH_SOURCE[0]})
+. $thisdir/../vars.sh
 
 rm -rf $build
 mkdir -p $build
@@ -20,6 +21,10 @@ for i in picons-source/build-source/logos/*.svg; do
   echo -n '.'
 done
 echo
+
+echo "Size of $build: $(du -sh $build | cut -f1)"
+
+exit 0
 
 echo "Resize and compose"
 grep -v -e '^#' -e '^$' backgrounds.conf | while read lines; do
@@ -46,18 +51,14 @@ grep -v -e '^#' -e '^$' backgrounds.conf | while read lines; do
       src=$build/$chn.default.png
     fi
 
-    if [[ $dst == target/800x450/default/transparent/eentertainmenthd.png ]]; then
-      df -h
-    fi
-
     if [[ ! -f $dst ]]; then
-      echo "composing $bgfile,$src -> $dst"
-      convert $bgfile \( $src -background none -bordercolor none -border 100 -trim -border 1% -resize $resize -gravity center -extent $resolution +repage \) -layers merge - | $pngquant > $dst
+#      cp $src $dst
+#      convert $bgfile \( $src -background none -bordercolor none -border 100 -trim -border 1% -resize $resize -gravity center -extent $resolution +repage \) -layers merge - | $pngquant > $dst
+      convert $bgfile \( $src -background none -bordercolor none -border 100 -trim -border 1% -resize $resize -gravity center -extent $resolution +repage \) -layers merge - > $dst
     fi
 
     if [[ $chn.png != $sid.png ]]; then
       dstlink=$dir/$sid.png
-      echo "linking $dstlink to $dst"
       rm -f $dstlink
       ln -s $chn.png $dstlink
     fi

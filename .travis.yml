@@ -10,14 +10,14 @@ addons:
     - imagemagick
 
 install:
-  - ./checkout-pages.sh && ./checkout-picons.sh
+  - scripts/prepare/prepare.sh
 
 script:
-  - ./build.sh
+  - scripts/build/build.sh
 
-deploy:
-  skip_cleanup: true
-  provider: script
-  script: ./deploy-to-pages.sh
-  on:
-    branch: master
+#deploy:
+#  skip_cleanup: true
+#  provider: script
+#  script: ./deploy-to-pages.sh
+#  on:
+#    branch: master

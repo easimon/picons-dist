@@ -2,7 +2,10 @@
 
 set -euo pipefail
 
-. vars.sh
+echo "Start Checkout Github Pages"
+
+thisdir=$(dirname ${BASH_SOURCE[0]})
+. $thisdir/../../vars.sh
 
 # Prepare SSH authentication
 declare -r SSH_FILE="$(mktemp -u $HOME/.ssh/XXXXX)"
