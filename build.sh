@@ -46,14 +46,20 @@ grep -v -e '^#' -e '^$' backgrounds.conf | while read lines; do
       src=$build/$chn.default.png
     fi
 
+    if [[ $dst == target/800x450/default/transparent/eentertainmenthd.png ]]; then
+      df -h
+    fi
+
     if [[ ! -f $dst ]]; then
+      echo "composing $bgfile,$src -> $dst"
       convert $bgfile \( $src -background none -bordercolor none -border 100 -trim -border 1% -resize $resize -gravity center -extent $resolution +repage \) -layers merge - | $pngquant > $dst
     fi
 
-    dstlink=$dir/$sid.png
-    if [[ $dstlink != $dst ]]; then
+    if [[ $chn.png != $sid.png ]]; then
+      dstlink=$dir/$sid.png
+      echo "linking $dstlink to $dst"
       rm -f $dstlink
-      ln -s $dst $dstlink
+      ln -s $chn.png $dstlink
     fi
     echo -n '.'
   done
