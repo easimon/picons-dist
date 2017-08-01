@@ -7,34 +7,37 @@ pngquant="pngquant 256 -"
 thisdir=$(dirname ${BASH_SOURCE[0]})
 . $thisdir/../vars.sh
 
-rm -rf $build
-mkdir -p $build
+#rm -rf $build
+#mkdir -p $build
 
-echo "Copy source PNGs"
-cp picons-source/build-source/logos/*.png $build
+#echo "Copy source PNGs"
+#cp picons-source/build-source/logos/*.png $build
 
-echo "Convert SVGs"
-for i in picons-source/build-source/logos/*.svg; do
-  svg=$i
-  png=$build/$(basename "$i" ".svg").png
-  rsvg-convert --format=png --keep-aspect-ratio --width=1000 $svg > $png
-  echo -n '.'
-done
-echo
+#echo "Convert SVGs"
+#for i in picons-source/build-source/logos/*.svg; do
+#  svg=$i
+#  png=$build/$(basename "$i" ".svg").png
+#  rsvg-convert --format=png --keep-aspect-ratio --width=1000 $svg | $pngquant > $png
+#  echo -n '.'
+#done
+#echo
 
 echo "Size of $build folder: $(du -sh $build | cut -f1)"
 
-echo "Create aliases"
-
-for type in default light white; do
+function build_set() {
+  type=$1
   dir=$target/$type
-  for file in $(cat picons-source/build-source/snp-index); do
+  echo "Building $dir"
+  mkdir -p $dir
+  for file in $(cat picons-source/build-source/snp-index | sort | uniq); do
     sid=$(echo $file | cut -f1 -d=)
     chn=$(echo $file | cut -f2 -d=)
     dst=$dir/$chn.png
     src=$build/$chn.$type.png
     if [[ ! -f $src ]]; then
-      ln -s ../default/$sid.png $dir/$sid.png
+      if [[ ! -f $dir/$sid.png ]]; then 
+        ln -s ../default/$sid.png $dir/$sid.png
+      fi
     else
       if [[ ! -f $dst ]]; then
         cp $src $dst
@@ -42,14 +45,19 @@ for type in default light white; do
 
       if [[ $chn.png != $sid.png ]]; then
         dstlink=$dir/$sid.png
-        rm -f $dstlink
-        ln -s $chn.png $dstlink
+        if [[ ! -f $dstlink ]]; then
+          ln -s $chn.png $dstlink
+        fi
       fi
     fi
     echo -n '.'
   done
-done
+  echo
+}
 
+export -f build_set
+
+parallel build_set ::: default light white
 
 #echo "Resize and compose"
 #grep -v -e '^#' -e '^$' backgrounds.conf | while read lines; do
